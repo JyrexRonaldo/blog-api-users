@@ -13,8 +13,8 @@ function App() {
           <p>OdinBlog</p>
         </Link>
         </nav>
-      </div>
       <Outlet />
+      </div>
     </>
   )
 }

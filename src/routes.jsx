@@ -1,7 +1,7 @@
 import App from "./Components/App/App";
 import ErrorPage from "./Components/ErrorPage/ErrorPage";
-import LoginForm from "./Components/LogInForm/LogInForm";
-
+import LoginForm from "./Components/LoginForm/LoginForm";
+import RegisterForm from "./Components/RegisterForm/RegisterForm";
 
 const routes = [
   {
@@ -12,6 +12,10 @@ const routes = [
       {
         path: "/login",
         element: <LoginForm />,
+      },
+      {
+        path: "/register",
+        element: <RegisterForm />,
       },
     ],
   },
