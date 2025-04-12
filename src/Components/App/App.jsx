@@ -12,6 +12,7 @@ function App() {
         <Link to="/">
           <p>OdinBlog</p>
         </Link>
+        <button>Log out</button>
         </nav>
       <Outlet />
       </div>

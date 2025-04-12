@@ -1,8 +1,8 @@
-import App from "./Components/App/App";
-import ErrorPage from "./Components/ErrorPage/ErrorPage";
-import LoginForm from "./Components/LoginForm/LoginForm";
-import RegisterForm from "./Components/RegisterForm/RegisterForm";
-import Posts from "./Components/Posts/Posts";
+import App from "./components/App/App";
+import ErrorPage from "./components/ErrorPage/ErrorPage";
+import LoginForm from "./components/LoginForm/LoginForm";
+import RegisterForm from "./components/RegisterForm/RegisterForm";
+import Posts from "./components/Posts/Posts";
 
 const routes = [
   {
