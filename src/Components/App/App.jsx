@@ -1,23 +1,19 @@
-import { Link, Outlet } from "react-router-dom"
-import styles from "./App.module.css"
-
+import { Link, Outlet } from 'react-router-dom'
 
 function App() {
-  
-
-  return (
-    <>
-      <div className={styles.app}>
-        <nav>
-        <Link to="/">
-          <p>OdinBlog</p>
-        </Link>
-        <button>Log out</button>
-        </nav>
-      <Outlet />
-      </div>
-    </>
-  )
+    return (
+        <>
+            <div  >
+                <nav>
+                    <Link to="/">
+                        <p>OdinBlog</p>
+                    </Link>
+                    <button>Log out</button>
+                </nav>
+                <Outlet />
+            </div>
+        </>
+    )
 }
 
 export default App
