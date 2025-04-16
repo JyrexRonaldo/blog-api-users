@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import Comment from '../Comment/Comment'
 
 function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
     const [show, setShow] = useState(false)
@@ -28,15 +29,16 @@ function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
                     <p>Comments ({commentsNumber})</p>
                     <div className="flex items-center gap-2">
                         <textarea
-                            className="resize-none bg-neutral-700 py-1 px-2"
+                            className="resize-none bg-neutral-700 py-1 px-2 rounded-[7px]"
                             name=""
                             id=""
                             placeholder="Leave a comment..."
                             cols="70"
                             rows="2"
                         ></textarea>
-                        <button className="bg-blue-500 p-2">Send</button>
+                        <button className="bg-blue-500 p-2 rounded-[7px]">Send</button>
                     </div>
+                    <Comment author="admin" createdAt="March 22, 2025" comment="Test comment." />
                 </div>
             )}
         </div>
