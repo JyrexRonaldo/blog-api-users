@@ -1,8 +1,13 @@
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import Comment from '../Comment/Comment'
 
-function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
+function PostItem({
+    authorName,
+    dateCreated,
+    postTitle,
+    commentsNumber,
+    postBody,
+}) {
     const [show, setShow] = useState(false)
 
     const handleCommentDisplay = () => {
@@ -11,18 +16,15 @@ function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
 
     return (
         <div className="flex flex-col gap-3 rounded-[12px] bg-neutral-800 p-5.5">
-            <div className="flex gap-3.5">
-                <p className="text-[0.8rem] font-extrabold">{authorName}</p>
-                <p className="text-[0.8rem] font-extralight">{dateCreated}</p>
+            <p className='text-4xl font-extrabold'>{postTitle}</p>
+            <div className='flex gap-4'>
+                <p>{authorName}</p>
+                <p>Posted on: {dateCreated}</p>
             </div>
-            <p className="text-4xl font-bold">{postTitle}</p>
-            <div className="flex gap-3.5 font-extralight">
-                <p onClick={handleCommentDisplay}>
-                    {commentsNumber}{' '}
-                    {commentsNumber > 1 ? 'Comments' : 'Comment'}
-                </p>
-                <button>Read</button>
-            </div>
+            <p>{postBody}</p>
+            <p onClick={handleCommentDisplay}>
+                {commentsNumber} {commentsNumber > 1 ? 'Comments' : 'Comment'}
+            </p>
 
             {show && (
                 <div className="flex flex-col gap-3">
@@ -45,4 +47,4 @@ function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
     )
 }
 
-export default PostCard
+export default PostItem
