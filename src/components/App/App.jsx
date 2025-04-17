@@ -1,13 +1,38 @@
+import { useState } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 
 function App() {
+    const [loginStatus, setLoginStatus] = useState(true)
+
+    let logOutButton = null
+
     const navigate = useNavigate()
     const handleLogOutButton = () => {
         localStorage.clear()
-        navigate("/login")
-        
+        navigate('/login')
+        setLoginStatus(false)
     }
 
+    if (loginStatus) {
+        logOutButton = (
+            <button
+                className="cursor-pointer rounded-[10px] border border-neutral-600 p-2 disabled:opacity-0"
+                onClick={handleLogOutButton}
+            >
+                Log out
+            </button>
+        )
+    } else {
+        logOutButton = (
+            <button
+                disabled
+                className="cursor-pointer rounded-[10px] border border-neutral-600 p-2 disabled:opacity-0"
+                onClick={handleLogOutButton}
+            >
+                Log out
+            </button>
+        )
+    }
 
     return (
         <div className="flex h-screen flex-col bg-neutral-900 text-white">
@@ -17,9 +42,7 @@ function App() {
                         OdinBlog
                     </p>
                 </Link>
-                <button className="cursor-pointer rounded-[10px] border border-neutral-600 p-2" onClick={handleLogOutButton}>
-                    Log out
-                </button>
+                {logOutButton}
             </nav>
             <Outlet />
         </div>
