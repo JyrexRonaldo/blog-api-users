@@ -18,7 +18,11 @@ function PostCard({ authorName, dateCreated, postTitle, commentsNumber, postId }
                 <p className="text-[0.8rem] font-extrabold">{authorName}</p>
                 <p className="text-[0.8rem] font-extralight">{dateCreated}</p>
             </div>
+            <Link to={`/${postId}`}>
             <p className="text-4xl font-bold">{postTitle}</p>
+            </Link>
+                
+            
             <div className="flex gap-3.5 font-extralight">
                 <button
                     onClick={handleCommentDisplay}

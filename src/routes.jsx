@@ -24,9 +24,9 @@ const routes = [
         element: <RegisterForm />,
       },
       {
-        path: "Item", 
+        path: "/:itemId", 
         element: <PostItem />
-      }
+      },
     ],
   },
 ];

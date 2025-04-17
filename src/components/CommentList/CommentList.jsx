@@ -17,7 +17,7 @@ const useCommentsData = (postId) => {
             .then((response) => setCommenttsData(response))
             .catch((error) => setError(error))
             .finally(() => setLoading(false))
-    }, [])
+    }, [postId])
 
     return { commentsData, error, loading }
 }
