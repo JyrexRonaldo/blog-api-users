@@ -2,6 +2,7 @@ import PostCard from '../PostCard/PostCard'
 import PostItem from '../PostItem/PostItem'
 import PostDataContext from '../PostDataContext/PostDataContext'
 import { useContext } from 'react'
+import CommentList from '../CommentList/CommentList'
 
 function Posts() {
     const { postsData, error, loading } = useContext(PostDataContext)
@@ -18,24 +19,29 @@ function Posts() {
             </div>
         )
 
-        console.log(postsData)
+    console.log(postsData)
 
-        const postCards = postsData.map((post) => {
-            return (
-                <PostCard key={post.id}
+    const postCards = postsData.map((post) => {
+        return (
+            <PostCard
+                key={post.id}
                 authorName={post.author.username}
                 dateCreated={post.createdAt}
                 postTitle={post.title}
                 commentsNumber={post._count.comments}
+                postId={post.id}
             />
-            )
-        })
+        )
+    })
 
     return (
         <div className="mt-2 flex w-180 flex-col gap-5 self-center">
             <h1 className="text-4xl font-extrabold">Posts</h1>
 
             {postCards}
+
+            {/* <CommentList postId={2} /> */}
+
 
             {/* <PostItem
                 authorName={'admin'}

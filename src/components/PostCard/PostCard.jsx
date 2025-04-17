@@ -3,8 +3,9 @@ import { useState } from 'react'
 import Comment from '../Comment/Comment'
 import commentIcon from '/commentIcon.svg'
 import readIcon from '/read.svg'
+import CommentList from '../CommentList/CommentList'
 
-function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
+function PostCard({ authorName, dateCreated, postTitle, commentsNumber, postId }) {
     const [show, setShow] = useState(false)
 
     const handleCommentDisplay = () => {
@@ -23,14 +24,22 @@ function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
                     onClick={handleCommentDisplay}
                     className="flex items-center gap-1.5"
                 >
-                    <img className='h-auto w-3.5' src={commentIcon} alt="comment icon" />
+                    <img
+                        className="h-auto w-3.5"
+                        src={commentIcon}
+                        alt="comment icon"
+                    />
                     <p>
                         {commentsNumber}{' '}
                         {commentsNumber > 1 ? 'Comments' : 'Comment'}
                     </p>
                 </button>
-                <button className='flex gap-1.5'>
-                    <img className='h-auto w-3.5' src={readIcon} alt="comment icon" />
+                <button className="flex gap-1.5">
+                    <img
+                        className="h-auto w-3.5"
+                        src={readIcon}
+                        alt="comment icon"
+                    />
                     <p>Read</p>
                 </button>
             </div>
@@ -51,11 +60,7 @@ function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
                             Send
                         </button>
                     </div>
-                    <Comment
-                        author="admin"
-                        createdAt="March 22, 2025"
-                        comment="Test comment."
-                    />
+                    <CommentList postId={postId} />
                 </div>
             )}
         </div>
