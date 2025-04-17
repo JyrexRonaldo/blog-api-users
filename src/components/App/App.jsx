@@ -1,5 +1,27 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
+import PostDataContext from '../PostDataContext/PostDataContext'
+
+const usePostsData = () => {
+    const [postsData, setPostsData] = useState(null)
+    const [error, setError] = useState(null)
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+        fetch('http://localhost:3000/')
+            .then((response) => {
+                if (response.status >= 400) {
+                    throw new Error('server error')
+                }
+                return response.json()
+            })
+            .then((response) => setPostsData(response))
+            .catch((error) => setError(error))
+            .finally(() => setLoading(false))
+    }, [])
+
+    return { postsData, error, loading }
+}
 
 function App() {
     const [loginStatus, setLoginStatus] = useState(true)
@@ -34,8 +56,10 @@ function App() {
         )
     }
 
+    const outletData = { ...usePostsData() }
+
     return (
-        <div className="flex h-screen flex-col bg-neutral-900 text-white">
+        <div className="flex h-full flex-col bg-neutral-900 text-white pb-20">
             <nav className="flex h-20 items-center justify-around">
                 <Link to="/">
                     <p className="text-3xl font-extrabold text-blue-500">
@@ -44,7 +68,9 @@ function App() {
                 </Link>
                 {logOutButton}
             </nav>
-            <Outlet />
+            <PostDataContext.Provider value={outletData}>
+                <Outlet />
+            </PostDataContext.Provider>
         </div>
     )
 }
