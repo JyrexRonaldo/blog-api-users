@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
 import Comment from '../Comment/Comment'
+import commentIcon from '/commentIcon.svg'
+import readIcon from '/read.svg'
 
 function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
     const [show, setShow] = useState(false)
@@ -17,11 +19,20 @@ function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
             </div>
             <p className="text-4xl font-bold">{postTitle}</p>
             <div className="flex gap-3.5 font-extralight">
-                <p onClick={handleCommentDisplay}>
-                    {commentsNumber}{' '}
-                    {commentsNumber > 1 ? 'Comments' : 'Comment'}
-                </p>
-                <button>Read</button>
+                <button
+                    onClick={handleCommentDisplay}
+                    className="flex items-center gap-1.5"
+                >
+                    <img className='h-auto w-3.5' src={commentIcon} alt="comment icon" />
+                    <p>
+                        {commentsNumber}{' '}
+                        {commentsNumber > 1 ? 'Comments' : 'Comment'}
+                    </p>
+                </button>
+                <button className='flex gap-1.5'>
+                    <img className='h-auto w-3.5' src={readIcon} alt="comment icon" />
+                    <p>Read</p>
+                </button>
             </div>
 
             {show && (
@@ -29,16 +40,22 @@ function PostCard({ authorName, dateCreated, postTitle, commentsNumber }) {
                     <p>Comments ({commentsNumber})</p>
                     <div className="flex items-center gap-2">
                         <textarea
-                            className="resize-none bg-neutral-700 py-1 px-2 rounded-[7px]"
+                            className="resize-none rounded-[7px] bg-neutral-700 px-2 py-1"
                             name=""
                             id=""
                             placeholder="Leave a comment..."
                             cols="70"
                             rows="2"
                         ></textarea>
-                        <button className="bg-blue-500 p-2 rounded-[7px]">Send</button>
+                        <button className="rounded-[7px] bg-blue-500 p-2">
+                            Send
+                        </button>
                     </div>
-                    <Comment author="admin" createdAt="March 22, 2025" comment="Test comment." />
+                    <Comment
+                        author="admin"
+                        createdAt="March 22, 2025"
+                        comment="Test comment."
+                    />
                 </div>
             )}
         </div>
