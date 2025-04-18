@@ -13,6 +13,8 @@ function PostCard({
     commentsNumber,
     postId,
 }) {
+    const [comment, setComment] = useState('')
+
     const navigate = useNavigate()
 
     const [show, setShow] = useState(false)
@@ -23,6 +25,35 @@ function PostCard({
 
     const handlePostItemDisplay = () => {
         navigate(`/${postId}`)
+    }
+
+    const handleCommentTextarea = (e) => {
+        setComment(e.target.value)
+    }
+
+    const handleCommentPost = async (e) => {
+        console.log(e.target.dataset.userId)
+        try {
+            const response = await fetch(
+                `http://localhost:3000/:${postId}/comments`,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        comment,
+                        authorId: localStorage.getItem('userId'),
+                        postId,
+                    }),
+                }
+            )
+
+            const data = await response.json()
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return (
@@ -69,13 +100,18 @@ function PostCard({
                     <div className="flex items-center gap-2">
                         <textarea
                             className="resize-none rounded-[7px] bg-neutral-700 px-2 py-1"
-                            name=""
+                            name="comment"
                             id=""
                             placeholder="Leave a comment..."
                             cols="70"
                             rows="2"
+                            value={comment}
+                            onChange={handleCommentTextarea}
                         ></textarea>
-                        <button className="rounded-[7px] bg-blue-500 p-2">
+                        <button
+                            className="rounded-[7px] bg-blue-500 p-2"
+                            onClick={handleCommentPost}
+                        >
                             Send
                         </button>
                     </div>
