@@ -3,6 +3,7 @@ import Comment from '../Comment/Comment'
 import commentIcon from '/commentIcon.svg'
 import { useParams } from 'react-router-dom'
 import CommentList from '../CommentList/CommentList'
+import Textarea from '../Textarea/Textarea'
 
 const usePostItemData = (postId) => {
     const [postItemData, setPostItemData] = useState(null)
@@ -107,24 +108,12 @@ function PostItem() {
             {show && (
                 <div className="flex flex-col gap-3">
                     <p>Comments ({postItemData._count.comments})</p>
-                    <div className="flex items-center gap-2">
-                        <textarea
-                            className="resize-none rounded-[7px] bg-neutral-700 px-2 py-1"
-                            name="comment"
-                            id=""
-                            placeholder="Leave a comment..."
-                            cols="70"
-                            rows="2"
-                            value={comment}
-                            onChange={handleCommentTextarea}
-                        ></textarea>
-                        <button
-                            className="rounded-[7px] bg-blue-500 p-2"
-                            onClick={handleCommentPost}
-                        >
-                            Send
-                        </button>
-                    </div>
+                    <Textarea
+                        textBoxValue={comment}
+                        textFieldHandler={handleCommentTextarea}
+                        sendButtonHandler={handleCommentPost}
+                        placeholderText={"Leave a comment..."}
+                    ></Textarea>
                     <CommentList postId={itemId} />
                 </div>
             )}

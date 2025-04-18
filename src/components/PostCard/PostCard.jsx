@@ -5,6 +5,7 @@ import commentIcon from '/commentIcon.svg'
 import readIcon from '/read.svg'
 import CommentList from '../CommentList/CommentList'
 import { useNavigate } from 'react-router-dom'
+import Textarea from '../Textarea/Textarea'
 
 function PostCard({
     authorName,
@@ -97,24 +98,12 @@ function PostCard({
             {show && (
                 <div className="flex flex-col gap-3">
                     <p>Comments ({commentsNumber})</p>
-                    <div className="flex items-center gap-2">
-                        <textarea
-                            className="resize-none rounded-[7px] bg-neutral-700 px-2 py-1"
-                            name="comment"
-                            id=""
-                            placeholder="Leave a comment..."
-                            cols="70"
-                            rows="2"
-                            value={comment}
-                            onChange={handleCommentTextarea}
-                        ></textarea>
-                        <button
-                            className="rounded-[7px] bg-blue-500 p-2"
-                            onClick={handleCommentPost}
-                        >
-                            Send
-                        </button>
-                    </div>
+                    <Textarea
+                        textBoxValue={comment}
+                        textFieldHandler={handleCommentTextarea}
+                        sendButtonHandler={handleCommentPost}
+                        placeholderText={"Leave a comment..."}
+                    ></Textarea>
                     <CommentList postId={postId} />
                 </div>
             )}
