@@ -4,12 +4,25 @@ import Comment from '../Comment/Comment'
 import commentIcon from '/commentIcon.svg'
 import readIcon from '/read.svg'
 import CommentList from '../CommentList/CommentList'
+import { useNavigate } from 'react-router-dom'
 
-function PostCard({ authorName, dateCreated, postTitle, commentsNumber, postId }) {
+function PostCard({
+    authorName,
+    dateCreated,
+    postTitle,
+    commentsNumber,
+    postId,
+}) {
+    const navigate = useNavigate()
+
     const [show, setShow] = useState(false)
 
     const handleCommentDisplay = () => {
         setShow(!show)
+    }
+
+    const handlePostItemDisplay = () => {
+        navigate(`/${postId}`)
     }
 
     return (
@@ -19,10 +32,9 @@ function PostCard({ authorName, dateCreated, postTitle, commentsNumber, postId }
                 <p className="text-[0.8rem] font-extralight">{dateCreated}</p>
             </div>
             <Link to={`/${postId}`}>
-            <p className="text-4xl font-bold">{postTitle}</p>
+                <p className="text-4xl font-bold">{postTitle}</p>
             </Link>
-                
-            
+
             <div className="flex gap-3.5 font-extralight">
                 <button
                     onClick={handleCommentDisplay}
@@ -38,7 +50,10 @@ function PostCard({ authorName, dateCreated, postTitle, commentsNumber, postId }
                         {commentsNumber > 1 ? 'Comments' : 'Comment'}
                     </p>
                 </button>
-                <button className="flex gap-1.5">
+                <button
+                    className="flex gap-1.5"
+                    onClick={handlePostItemDisplay}
+                >
                     <img
                         className="h-auto w-3.5"
                         src={readIcon}
