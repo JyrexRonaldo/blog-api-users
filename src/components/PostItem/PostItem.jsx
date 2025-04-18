@@ -29,7 +29,7 @@ const usePostItemData = (postId) => {
 function PostItem() {
     const [comment, setComment] = useState('')
 
-    const [show, setShow] = useState(false)
+    const [show, setShow] = useState(true)
 
     const { itemId } = useParams()
 
