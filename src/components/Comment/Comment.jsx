@@ -73,14 +73,14 @@ function Comment({ author, createdAt, comment, commentId, postId }) {
                 <div className="flex gap-3.5">
                     <button onClick={handleEdit}>
                         <img
-                            className="h-auto w-3.5"
+                            className="h-auto w-3.5 cursor-pointer"
                             src={editIcon}
-                            alt="comment-icon"
+                            alt="edit-icon"
                         />
                     </button>
                     <button onClick={handleDelete}>
                         <img
-                            className="h-auto w-3.5"
+                            className="h-auto w-3.5 cursor-pointer"
                             src={deleteIcon}
                             alt="comment-icon"
                         />

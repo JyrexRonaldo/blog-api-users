@@ -70,7 +70,7 @@ function PostCard({
             <div className="flex gap-3.5 font-extralight">
                 <button
                     onClick={handleCommentDisplay}
-                    className="flex items-center gap-1.5"
+                    className="flex items-center gap-1.5 cursor-pointer"
                 >
                     <img
                         className="h-auto w-3.5"
@@ -83,7 +83,7 @@ function PostCard({
                     </p>
                 </button>
                 <button
-                    className="flex gap-1.5"
+                    className="flex gap-1.5 cursor-pointer"
                     onClick={handlePostItemDisplay}
                 >
                     <img

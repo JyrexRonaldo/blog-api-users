@@ -92,7 +92,7 @@ function PostItem() {
             <p>{postItemData.body}</p>
             <button
                 onClick={handleCommentDisplay}
-                className="flex items-center gap-1.5"
+                className="flex items-center gap-1.5 cursor-pointer"
             >
                 <img
                     className="h-auto w-3.5"

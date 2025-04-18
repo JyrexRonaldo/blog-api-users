@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import PostDataContext from '../PostDataContext/PostDataContext'
+import logOutIcon from '/log-out.svg'
 
 const usePostsData = () => {
     const [postsData, setPostsData] = useState(null)
@@ -37,21 +38,22 @@ function App() {
 
     if (loginStatus) {
         logOutButton = (
-            <button
-                className="cursor-pointer rounded-[10px] border border-neutral-600 p-2 disabled:opacity-0"
-                onClick={handleLogOutButton}
-            >
-                Log out
+            <button onClick={handleLogOutButton}>
+                <img
+                    className="h-auto w-5.5 cursor-pointer"
+                    src={logOutIcon}
+                    alt="edit-icon"
+                />
             </button>
         )
     } else {
         logOutButton = (
-            <button
-                disabled
-                className="cursor-pointer rounded-[10px] border border-neutral-600 p-2 disabled:opacity-0"
-                onClick={handleLogOutButton}
-            >
-                Log out
+            <button disabled onClick={handleLogOutButton}>
+                <img
+                    className="h-auto w-5.5 cursor-pointer"
+                    src={logOutIcon}
+                    alt="edit-icon"
+                />
             </button>
         )
     }
@@ -59,7 +61,7 @@ function App() {
     const outletData = { ...usePostsData() }
 
     return (
-        <div className="flex h-full flex-col bg-neutral-900 text-white pb-20">
+        <div className="flex h-full flex-col bg-neutral-900 pb-20 text-white">
             <nav className="flex h-20 items-center justify-around">
                 <Link to="/">
                     <p className="text-3xl font-extrabold text-blue-500">

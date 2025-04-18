@@ -28,10 +28,6 @@ function LoginForm() {
             console.log(data)
             localStorage.setItem('userToken', `${data.token}`)
             localStorage.setItem('userId', `${data.userId}`)
-            // console.log(data.userId, "userId line 30" )
-            // console.log(
-            //     `Local storage variable : ${localStorage.getItem('userToken')}`
-            // )
             navigate('/')
         } catch (error) {
             console.log(error)
