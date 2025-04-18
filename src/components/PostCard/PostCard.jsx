@@ -88,7 +88,7 @@ function PostCard({
                     <img
                         className="h-auto w-3.5"
                         src={readIcon}
-                        alt="comment icon"
+                        alt="comment-icon"
                     />
                     <p>Read</p>
                 </button>

@@ -40,8 +40,7 @@ function PostItem() {
         setComment(e.target.value)
     }
 
-    const handleCommentPost = async (e) => {
-        console.log(e.target.dataset.userId)
+    const handleCommentPost = async () => {
         try {
             const response = await fetch(
                 `http://localhost:3000/:${itemId}/comments`,

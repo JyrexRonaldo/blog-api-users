@@ -38,7 +38,6 @@ function CommentList({ postId }) {
             </div>
         )
 
-    console.log(commentsData)
 
     const commentCards = commentsData.map((comment) => {
         return (
@@ -47,6 +46,8 @@ function CommentList({ postId }) {
                 author={comment.author.username}
                 createdAt={comment.createdAt}
                 comment={comment.comment}
+                commentId={comment.id}
+                postId={comment.postId}
             />
         )
     })
