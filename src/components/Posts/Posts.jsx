@@ -5,7 +5,8 @@ import { useContext } from 'react'
 import CommentList from '../CommentList/CommentList'
 
 function Posts() {
-    const { postsData, error, loading } = useContext(PostDataContext)
+    const { commentsData, postsData, error, loading } = useContext(PostDataContext)
+
     if (loading)
         return (
             <div>
@@ -19,7 +20,9 @@ function Posts() {
             </div>
         )
 
-    console.log(postsData)
+    console.log({postsData})
+    console.log({commentsData})
+
 
     const postCards = postsData.map((post) => {
         return (

@@ -1,27 +1,60 @@
 import { useState, useEffect } from 'react'
 import { Link, Outlet, useNavigate } from 'react-router-dom'
 import PostDataContext from '../PostDataContext/PostDataContext'
+
 import logOutIcon from '/log-out.svg'
 
 const usePostsData = () => {
+    const [commentsData, setCommentData] = useState(null)
     const [postsData, setPostsData] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
 
+    // useEffect(() => {
+    //     Promise.all([fetch('http://localhost:3000/'),fetch('http://localhost:3000/comments')])
+    //         .then((response) => {
+    //             if (response.status >= 400) {
+    //                 throw new Error('server error')
+    //             }
+    //             console.log(response)
+    //             return response[0].json()
+    //         })
+    //         .then((response) => {setPostsData(response[0])})
+    //         .catch((error) => setError(error))
+    //         .finally(() => setLoading(false))
+    // }, [])
+
     useEffect(() => {
-        fetch('http://localhost:3000/')
-            .then((response) => {
-                if (response.status >= 400) {
-                    throw new Error('server error')
+        async function fetchData() {
+            try {
+                const postResponse = await fetch('http://localhost:3000/')
+                const commentsResponse = await fetch(
+                    'http://localhost:3000/comments'
+                )
+
+                if (postResponse.status >= 400) {
+                    throw new Error('post server error')
                 }
-                return response.json()
-            })
-            .then((response) => setPostsData(response))
-            .catch((error) => setError(error))
-            .finally(() => setLoading(false))
+
+                if (commentsResponse.status >= 400) {
+                    throw new Error('comment server error')
+                }
+
+                const postData = await postResponse.json()
+                const commentData = await commentsResponse.json()
+
+                setPostsData(postData)
+                setCommentData(commentData)
+            } catch (error) {
+                setError(error)
+            } finally {
+                setLoading(false)
+            }
+        }
+        fetchData()
     }, [])
 
-    return { postsData, error, loading }
+    return { commentsData, postsData, error, loading }
 }
 
 function App() {
@@ -58,7 +91,7 @@ function App() {
         )
     }
 
-    const outletData = { ...usePostsData() }
+    const postOutletData = { ...usePostsData() }
 
     return (
         <div className="flex h-full flex-col bg-neutral-900 pb-20 text-white">
@@ -70,7 +103,7 @@ function App() {
                 </Link>
                 {logOutButton}
             </nav>
-            <PostDataContext.Provider value={outletData}>
+            <PostDataContext.Provider value={postOutletData}>
                 <Outlet />
             </PostDataContext.Provider>
         </div>
