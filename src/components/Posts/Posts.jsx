@@ -5,7 +5,8 @@ import { useContext } from 'react'
 import CommentList from '../CommentList/CommentList'
 
 function Posts() {
-    const { commentsData, postsData, error, loading } = useContext(PostDataContext)
+    const { commentsData, postsData, error, loading } =
+        useContext(PostDataContext)
 
     if (loading)
         return (
@@ -21,8 +22,20 @@ function Posts() {
         )
 
     console.log({postsData})
-    console.log({commentsData})
+    console.log({ commentsData })
 
+    function getCommentCountByPostId(postId) {
+        let commentCount = 0
+        commentsData.forEach((comment) => {
+            if (comment.postId === postId) {
+                commentCount++
+            }
+        })
+
+        return commentCount
+    }
+
+    console.log(getCommentCountByPostId(5))
 
     const postCards = postsData.map((post) => {
         return (
@@ -31,7 +44,7 @@ function Posts() {
                 authorName={post.author.username}
                 dateCreated={post.createdAt}
                 postTitle={post.title}
-                commentsNumber={post._count.comments}
+                commentsNumber={getCommentCountByPostId(post.id)}
                 postId={post.id}
             />
         )
@@ -44,7 +57,6 @@ function Posts() {
             {postCards}
 
             {/* <CommentList postId={2} /> */}
-
 
             {/* <PostItem
                 authorName={'admin'}
