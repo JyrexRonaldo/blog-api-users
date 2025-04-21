@@ -4,6 +4,7 @@ import commentIcon from '/commentIcon.svg'
 import { useParams } from 'react-router-dom'
 import CommentList from '../CommentList/CommentList'
 import Textarea from '../Textarea/Textarea'
+import { v4 as uuidv4 } from 'uuid';
 
 const usePostItemData = (postId) => {
     const [postItemData, setPostItemData] = useState(null)
@@ -51,6 +52,7 @@ function PostItem() {
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        id: uuidv4(),
                         comment,
                         authorId: localStorage.getItem('userId'),
                         postId: itemId,

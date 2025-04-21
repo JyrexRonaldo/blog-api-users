@@ -1,11 +1,13 @@
 import { Link } from 'react-router-dom'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import Comment from '../Comment/Comment'
 import commentIcon from '/commentIcon.svg'
 import readIcon from '/read.svg'
 import CommentList from '../CommentList/CommentList'
 import { useNavigate } from 'react-router-dom'
 import Textarea from '../Textarea/Textarea'
+import PostDataContext from '../PostDataContext/PostDataContext'
+import { v4 as uuidv4 } from 'uuid'
 
 function PostCard({
     authorName,
@@ -14,10 +16,9 @@ function PostCard({
     commentsNumber,
     postId,
 }) {
+    const { commentsData, setCommentData } = useContext(PostDataContext)
     const [comment, setComment] = useState('')
-
     const navigate = useNavigate()
-
     const [show, setShow] = useState(false)
 
     const handleCommentDisplay = () => {
@@ -43,6 +44,7 @@ function PostCard({
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({
+                        id: uuidv4(),
                         comment,
                         authorId: localStorage.getItem('userId'),
                         postId,
@@ -51,7 +53,7 @@ function PostCard({
             )
 
             const data = await response.json()
-            console.log(data)
+            setCommentData([...commentsData, data])
         } catch (error) {
             console.log(error)
         }
@@ -70,7 +72,7 @@ function PostCard({
             <div className="flex gap-3.5 font-extralight">
                 <button
                     onClick={handleCommentDisplay}
-                    className="flex items-center gap-1.5 cursor-pointer"
+                    className="flex cursor-pointer items-center gap-1.5"
                 >
                     <img
                         className="h-auto w-3.5"
@@ -83,7 +85,7 @@ function PostCard({
                     </p>
                 </button>
                 <button
-                    className="flex gap-1.5 cursor-pointer"
+                    className="flex cursor-pointer gap-1.5"
                     onClick={handlePostItemDisplay}
                 >
                     <img
@@ -102,7 +104,7 @@ function PostCard({
                         textBoxValue={comment}
                         textFieldHandler={handleCommentTextarea}
                         sendButtonHandler={handleCommentPost}
-                        placeholderText={"Leave a comment..."}
+                        placeholderText={'Leave a comment...'}
                     ></Textarea>
                     <CommentList postId={postId} />
                 </div>

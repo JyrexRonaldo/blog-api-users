@@ -10,20 +10,6 @@ const usePostsData = () => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
 
-    // useEffect(() => {
-    //     Promise.all([fetch('http://localhost:3000/'),fetch('http://localhost:3000/comments')])
-    //         .then((response) => {
-    //             if (response.status >= 400) {
-    //                 throw new Error('server error')
-    //             }
-    //             console.log(response)
-    //             return response[0].json()
-    //         })
-    //         .then((response) => {setPostsData(response[0])})
-    //         .catch((error) => setError(error))
-    //         .finally(() => setLoading(false))
-    // }, [])
-
     useEffect(() => {
         async function fetchData() {
             try {
@@ -54,7 +40,7 @@ const usePostsData = () => {
         fetchData()
     }, [])
 
-    return { commentsData, postsData, error, loading }
+    return { commentsData, postsData, setCommentData, setPostsData, error, loading }
 }
 
 function App() {

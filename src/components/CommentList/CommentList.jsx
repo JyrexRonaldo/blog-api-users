@@ -1,29 +1,13 @@
-import { useState, useEffect } from 'react'
+import { useContext } from 'react'
 import Comment from '../Comment/Comment'
-
-const useCommentsData = (postId) => {
-    const [commentsData, setCommenttsData] = useState(null)
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(true)
-
-    useEffect(() => {
-        fetch(`http://localhost:3000/${postId}/comments`)
-            .then((response) => {
-                if (response.status >= 400) {
-                    throw new Error('server error')
-                }
-                return response.json()
-            })
-            .then((response) => setCommenttsData(response))
-            .catch((error) => setError(error))
-            .finally(() => setLoading(false))
-    }, [postId])
-
-    return { commentsData, error, loading }
-}
+import PostDataContext from '../PostDataContext/PostDataContext'
 
 function CommentList({ postId }) {
-    const { commentsData, error, loading } = useCommentsData(postId)
+    const { commentsData, error, loading } = useContext(PostDataContext)
+
+    const currentPostComments = commentsData.filter(
+        (comment) => comment.postId === postId
+    )
 
     if (loading)
         return (
@@ -38,8 +22,8 @@ function CommentList({ postId }) {
             </div>
         )
 
-
-    const commentCards = commentsData.map((comment) => {
+    const commentCards = currentPostComments.map((comment) => {
+        console.log(comment, 'comment list line 51')
         return (
             <Comment
                 key={comment.id}
@@ -52,9 +36,7 @@ function CommentList({ postId }) {
         )
     })
 
-    return <div>
-        {commentCards}
-    </div>
+    return <div>{commentCards}</div>
 }
 
 export default CommentList
