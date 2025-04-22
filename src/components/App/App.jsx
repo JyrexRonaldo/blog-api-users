@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
-import { Link, Outlet, useNavigate } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import PostDataContext from '../PostDataContext/PostDataContext'
-import logOutIcon from '/log-out.svg'
+import NavBar from '../NavBar/NavBar'
 
 const usePostsData = (newComment, deletedCommentId) => {
     const [postsData, setPostsData] = useState(null)
@@ -25,57 +25,9 @@ const usePostsData = (newComment, deletedCommentId) => {
 }
 
 function App() {
-
-    // useEffect(() => {
-    //     const handlePageshow = (event) => {
-    //       if (event.persisted) {
-    //         window.location.reload();
-    //       }
-    //     };
-    
-    //     window.addEventListener('pageshow', handlePageshow);
-    
-    //     return () => {
-    //       window.removeEventListener('pageshow', handlePageshow);
-    //     };
-    //   }, []);
-
     const [newComment, setNewComment] = useState(null)
 
     const [deletedCommentId, setDeletedCommentId] = useState(null)
-
-    const [loginStatus, setLoginStatus] = useState(true)
-
-    let logOutButton = null
-
-    const navigate = useNavigate()
-    const handleLogOutButton = () => {
-        localStorage.clear()
-        navigate('/login')
-        setLoginStatus(false)
-    }
-
-    if (loginStatus) {
-        logOutButton = (
-            <button onClick={handleLogOutButton}>
-                <img
-                    className="h-auto w-5.5 cursor-pointer"
-                    src={logOutIcon}
-                    alt="edit-icon"
-                />
-            </button>
-        )
-    } else {
-        logOutButton = (
-            <button disabled onClick={handleLogOutButton}>
-                <img
-                    className="h-auto w-5.5 cursor-pointer"
-                    src={logOutIcon}
-                    alt="edit-icon"
-                />
-            </button>
-        )
-    }
 
     const outletData = {
         ...usePostsData(newComment, deletedCommentId),
@@ -86,19 +38,13 @@ function App() {
     }
 
     return (
-        <div className="flex h-full flex-col bg-neutral-900 pb-20 text-white">
-            <nav className="flex h-20 items-center justify-around">
-                <Link to="/">
-                    <p className="text-3xl font-extrabold text-blue-500">
-                        OdinBlog
-                    </p>
-                </Link>
-                {logOutButton}
-            </nav>
-            <PostDataContext.Provider value={outletData}>
-                <Outlet />
-            </PostDataContext.Provider>
-        </div>
+        <>
+            <NavBar>
+                <PostDataContext.Provider value={outletData}>
+                    <Outlet />
+                </PostDataContext.Provider>
+            </NavBar>
+        </>
     )
 }
 

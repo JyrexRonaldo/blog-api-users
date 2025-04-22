@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 import Comment from '../Comment/Comment'
 import commentIcon from '/commentIcon.svg'
-import { useParams, Link, useNavigate } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import CommentList from '../CommentList/CommentList'
 import Textarea from '../Textarea/Textarea'
-import logOutIcon from '/log-out.svg'
+import NavBar from '../NavBar/NavBar'
 
 const usePostItemData = (postId, newComment, deletedCommentId) => {
     const [postItemData, setPostItemData] = useState(null)
@@ -30,17 +30,6 @@ const usePostItemData = (postId, newComment, deletedCommentId) => {
 }
 
 function PostItem() {
-    const [loginStatus, setLoginStatus] = useState(true)
-
-    let logOutButton = null
-
-    const navigate = useNavigate()
-    const handleLogOutButton = () => {
-        localStorage.clear()
-        navigate('/login')
-        setLoginStatus(false)
-    }
-
     const [deletedCommentId, setDeletedCommentId] = useState(null)
     const [newComment, setNewComment] = useState(null)
     const [comment, setComment] = useState('')
@@ -104,39 +93,9 @@ function PostItem() {
 
     // console.log(postItemData)
 
-    if (loginStatus) {
-        logOutButton = (
-            <button onClick={handleLogOutButton}>
-                <img
-                    className="h-auto w-5.5 cursor-pointer"
-                    src={logOutIcon}
-                    alt="edit-icon"
-                />
-            </button>
-        )
-    } else {
-        logOutButton = (
-            <button disabled onClick={handleLogOutButton}>
-                <img
-                    className="h-auto w-5.5 cursor-pointer"
-                    src={logOutIcon}
-                    alt="edit-icon"
-                />
-            </button>
-        )
-    }
-
     return (
         <>
-            <div className="flex h-full flex-col bg-neutral-900 pb-20 text-white">
-                <nav className="flex h-20 items-center justify-around">
-                    <Link to="/">
-                        <p className="text-3xl font-extrabold text-blue-500">
-                            OdinBlog
-                        </p>
-                    </Link>
-                    {logOutButton}
-                </nav>
+            <NavBar>
                 <div className="mt-2 flex w-180 flex-col gap-3 self-center rounded-[12px] bg-neutral-800 p-5.5">
                     <p className="text-4xl font-extrabold">
                         {postItemData.title}
@@ -181,7 +140,7 @@ function PostItem() {
                         </div>
                     )}
                 </div>
-            </div>
+            </NavBar>
         </>
     )
 }
