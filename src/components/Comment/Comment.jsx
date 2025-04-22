@@ -6,6 +6,7 @@ import { format } from 'date-fns'
 
 function Comment({
     author,
+    authorId,
     createdAt,
     comment,
     commentId,
@@ -78,6 +79,8 @@ function Comment({
 
     createdAt = format(new Date(createdAt), "MMMM dd, yyyy")
 
+    const allowInteraction =  +localStorage.getItem("userId") === authorId
+
     return (
         <div>
             <div className="flex justify-between">
@@ -88,7 +91,7 @@ function Comment({
                     </div>
                     <p className="text-[14px]">{comment}</p>
                 </div>
-                <div className="flex gap-3.5">
+                { allowInteraction && <div className="flex gap-3.5">
                     <button onClick={handleEdit}>
                         <img
                             className="h-auto w-3.5 cursor-pointer"
@@ -103,7 +106,7 @@ function Comment({
                             alt="comment-icon"
                         />
                     </button>
-                </div>
+                </div>}
             </div>
             {showId === show && (
                 <Textarea

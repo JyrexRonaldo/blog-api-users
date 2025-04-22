@@ -50,12 +50,13 @@ function CommentList({
         )
 
     const commentCards = commentsData
-        .sort((a, b) => (a.id > b.id ? 1 : -1))
+        .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
         .map((comment) => {
             return (
                 <Comment
                     key={comment.id}
                     author={comment.author.username}
+                    authorId={comment.authorId}
                     createdAt={comment.createdAt}
                     comment={comment.comment}
                     commentId={comment.id}

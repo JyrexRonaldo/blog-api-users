@@ -30,7 +30,7 @@ function Posts() {
     console.log(postsData)
 
     const postCards = postsData
-        .sort((a, b) => (a.id > b.id ? 1 : -1))
+        .sort((a, b) => (a.createdAt > b.createdAt ? 1 : -1))
         .map((post) => {
             return (
                 <PostCard
