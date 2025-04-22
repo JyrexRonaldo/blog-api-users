@@ -3,6 +3,7 @@ import PostItem from '../PostItem/PostItem'
 import PostDataContext from '../PostDataContext/PostDataContext'
 import { useContext } from 'react'
 import CommentList from '../CommentList/CommentList'
+import { Link } from 'react-router-dom'
 
 function Posts() {
     const {
@@ -48,8 +49,19 @@ function Posts() {
             )
         })
 
+    console.log(localStorage.getItem('userId'))
+
     return (
         <div className="mt-2 flex w-180 flex-col gap-5 self-center">
+            {!localStorage.getItem('userId') && (
+                <p className="self-center bg-amber-950/70 px-5 py-2">
+                    You are browsing as a guest.{' '}
+                    <Link to={'/login'} className="text-blue-500">
+                        Log in
+                    </Link>{' '}
+                    to comment and interact with posts.
+                </p>
+            )}
             <h1 className="text-4xl font-extrabold">Posts</h1>
             {postCards}
         </div>
