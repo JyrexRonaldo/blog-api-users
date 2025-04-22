@@ -3,7 +3,7 @@ import { Link, Outlet, useNavigate } from 'react-router-dom'
 import PostDataContext from '../PostDataContext/PostDataContext'
 import logOutIcon from '/log-out.svg'
 
-const usePostsData = () => {
+const usePostsData = (newComment, deletedCommentId) => {
     const [postsData, setPostsData] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -19,12 +19,31 @@ const usePostsData = () => {
             .then((response) => setPostsData(response))
             .catch((error) => setError(error))
             .finally(() => setLoading(false))
-    }, [])
+    }, [newComment, deletedCommentId])
 
     return { postsData, error, loading }
 }
 
 function App() {
+
+    // useEffect(() => {
+    //     const handlePageshow = (event) => {
+    //       if (event.persisted) {
+    //         window.location.reload();
+    //       }
+    //     };
+    
+    //     window.addEventListener('pageshow', handlePageshow);
+    
+    //     return () => {
+    //       window.removeEventListener('pageshow', handlePageshow);
+    //     };
+    //   }, []);
+
+    const [newComment, setNewComment] = useState(null)
+
+    const [deletedCommentId, setDeletedCommentId] = useState(null)
+
     const [loginStatus, setLoginStatus] = useState(true)
 
     let logOutButton = null
@@ -58,7 +77,13 @@ function App() {
         )
     }
 
-    const outletData = { ...usePostsData() }
+    const outletData = {
+        ...usePostsData(newComment, deletedCommentId),
+        setNewComment,
+        setDeletedCommentId,
+        deletedCommentId,
+        newComment,
+    }
 
     return (
         <div className="flex h-full flex-col bg-neutral-900 pb-20 text-white">

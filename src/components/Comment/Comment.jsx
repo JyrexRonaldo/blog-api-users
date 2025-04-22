@@ -3,7 +3,7 @@ import deleteIcon from '/trash.svg'
 import editIcon from '/edit.svg'
 import Textarea from '../Textarea/Textarea'
 
-function Comment({ author, createdAt, comment, commentId, postId }) {
+function Comment({ author, createdAt, comment, commentId, postId , setDeletedCommentId }) {
     const [show, setShow] = useState(false)
 
     const [updateComment, setUpdateComment] = useState(comment)
@@ -55,6 +55,7 @@ function Comment({ author, createdAt, comment, commentId, postId }) {
             )
             const data = await response.json()
             console.log(data)
+            setDeletedCommentId(data.deleted)
         } catch (error) {
             console.log(error)
         }

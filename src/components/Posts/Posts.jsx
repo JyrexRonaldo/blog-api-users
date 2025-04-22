@@ -5,7 +5,15 @@ import { useContext } from 'react'
 import CommentList from '../CommentList/CommentList'
 
 function Posts() {
-    const { postsData, error, loading } = useContext(PostDataContext)
+    const {
+        postsData,
+        error,
+        loading,
+        setNewComment,
+        setDeletedCommentId,
+        deletedCommentId,
+        newComment,
+    } = useContext(PostDataContext)
     if (loading)
         return (
             <div>
@@ -30,6 +38,10 @@ function Posts() {
                 postTitle={post.title}
                 commentsNumber={post._count.comments}
                 postId={post.id}
+                setNewComment={setNewComment}
+                setDeletedCommentId={setDeletedCommentId}
+                deletedCommentId={deletedCommentId}
+                newComment={newComment}
             />
         )
     })
@@ -41,7 +53,6 @@ function Posts() {
             {postCards}
 
             {/* <CommentList postId={2} /> */}
-
 
             {/* <PostItem
                 authorName={'admin'}

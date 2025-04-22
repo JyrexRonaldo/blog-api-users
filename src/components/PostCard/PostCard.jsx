@@ -13,8 +13,14 @@ function PostCard({
     postTitle,
     commentsNumber,
     postId,
+    setNewComment,
+    setDeletedCommentId,
+    deletedCommentId,
+    newComment
 }) {
-    const [newComment, setNewComment] = useState(null)
+    // const [deletedCommentId, setDeletedCommentId] = useState(null)
+
+    // const [newComment, setNewComment] = useState(null)
 
     const [comment, setComment] = useState('')
 
@@ -54,7 +60,7 @@ function PostCard({
 
             const data = await response.json()
             console.log(data)
-            setComment("")
+            setComment('')
             setNewComment(data)
         } catch (error) {
             console.log(error)
@@ -74,7 +80,7 @@ function PostCard({
             <div className="flex gap-3.5 font-extralight">
                 <button
                     onClick={handleCommentDisplay}
-                    className="flex items-center gap-1.5 cursor-pointer"
+                    className="flex cursor-pointer items-center gap-1.5"
                 >
                     <img
                         className="h-auto w-3.5"
@@ -87,7 +93,7 @@ function PostCard({
                     </p>
                 </button>
                 <button
-                    className="flex gap-1.5 cursor-pointer"
+                    className="flex cursor-pointer gap-1.5"
                     onClick={handlePostItemDisplay}
                 >
                     <img
@@ -106,9 +112,14 @@ function PostCard({
                         textBoxValue={comment}
                         textFieldHandler={handleCommentTextarea}
                         sendButtonHandler={handleCommentPost}
-                        placeholderText={"Leave a comment..."}
+                        placeholderText={'Leave a comment...'}
                     ></Textarea>
-                    <CommentList postId={postId} newComment={newComment} />
+                    <CommentList
+                        postId={postId}
+                        newComment={newComment}
+                        deletedCommentId={deletedCommentId}
+                        setDeletedCommentId={setDeletedCommentId}
+                    />
                 </div>
             )}
         </div>

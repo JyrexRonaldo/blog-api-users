@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Comment from '../Comment/Comment'
 
-const useCommentsData = (postId, newComment) => {
+const useCommentsData = (postId, newComment, deletedCommentId) => {
     const [commentsData, setCommenttsData] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -17,15 +17,13 @@ const useCommentsData = (postId, newComment) => {
             .then((response) => setCommenttsData(response))
             .catch((error) => setError(error))
             .finally(() => setLoading(false))
-    }, [postId, newComment])
+    }, [postId, newComment, deletedCommentId])
 
     return { commentsData, error, loading }
 }
 
-function CommentList({ postId, newComment = null }) {
-    const { commentsData, error, loading } = useCommentsData(postId, newComment)
-
-    console.log(commentsData)
+function CommentList({ postId, newComment = null, deletedCommentId = null, setDeletedCommentId }) {
+    const { commentsData, error, loading } = useCommentsData(postId, newComment, deletedCommentId)
 
     if (loading)
         return (
@@ -49,6 +47,7 @@ function CommentList({ postId, newComment = null }) {
                 comment={comment.comment}
                 commentId={comment.id}
                 postId={comment.postId}
+                setDeletedCommentId={setDeletedCommentId}
             />
         )
     })
