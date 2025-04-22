@@ -3,9 +3,17 @@ import deleteIcon from '/trash.svg'
 import editIcon from '/edit.svg'
 import Textarea from '../Textarea/Textarea'
 
-function Comment({ author, createdAt, comment, commentId, postId , setDeletedCommentId }) {
-    const [show, setShow] = useState(false)
-
+function Comment({
+    author,
+    createdAt,
+    comment,
+    commentId,
+    postId,
+    setDeletedCommentId,
+    showId,
+    show,
+    setShow,
+}) {
     const [updateComment, setUpdateComment] = useState(comment)
 
     const handleCommentTextarea = (e) => {
@@ -36,7 +44,10 @@ function Comment({ author, createdAt, comment, commentId, postId , setDeletedCom
     }
 
     const handleEdit = () => {
-        setShow(!show)
+        setShow(commentId)
+        if (show === commentId) {
+            setShow(null)
+        }
     }
 
     const handleDelete = async () => {
@@ -55,7 +66,7 @@ function Comment({ author, createdAt, comment, commentId, postId , setDeletedCom
             )
             const data = await response.json()
             console.log(data)
-            setDeletedCommentId(data.deleted)
+            setDeletedCommentId({...data.deleted})
         } catch (error) {
             console.log(error)
         }
@@ -88,7 +99,7 @@ function Comment({ author, createdAt, comment, commentId, postId , setDeletedCom
                     </button>
                 </div>
             </div>
-            {show && (
+            {showId === show && (
                 <Textarea
                     textBoxValue={updateComment}
                     textFieldHandler={handleCommentTextarea}

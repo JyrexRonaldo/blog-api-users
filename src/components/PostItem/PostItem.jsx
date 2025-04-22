@@ -66,7 +66,7 @@ function PostItem() {
             const data = await response.json()
             console.log(data)
             setComment('')
-            setNewComment(data)
+            setNewComment({...data})
         } catch (error) {
             console.log(error)
         }

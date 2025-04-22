@@ -22,8 +22,19 @@ const useCommentsData = (postId, newComment, deletedCommentId) => {
     return { commentsData, error, loading }
 }
 
-function CommentList({ postId, newComment = null, deletedCommentId = null, setDeletedCommentId }) {
-    const { commentsData, error, loading } = useCommentsData(postId, newComment, deletedCommentId)
+function CommentList({
+    postId,
+    newComment = null,
+    deletedCommentId = null,
+    setDeletedCommentId,
+}) {
+    const { commentsData, error, loading } = useCommentsData(
+        postId,
+        newComment,
+        deletedCommentId
+    )
+
+    const [show, setShow] = useState(false)
 
     if (loading)
         return (
@@ -48,6 +59,9 @@ function CommentList({ postId, newComment = null, deletedCommentId = null, setDe
                 commentId={comment.id}
                 postId={comment.postId}
                 setDeletedCommentId={setDeletedCommentId}
+                showId={comment.id}
+                show={show}
+                setShow={setShow}
             />
         )
     })
