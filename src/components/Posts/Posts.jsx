@@ -29,22 +29,24 @@ function Posts() {
 
     console.log(postsData)
 
-    const postCards = postsData.map((post) => {
-        return (
-            <PostCard
-                key={post.id}
-                authorName={post.author.username}
-                dateCreated={post.createdAt}
-                postTitle={post.title}
-                commentsNumber={post._count.comments}
-                postId={post.id}
-                setNewComment={setNewComment}
-                setDeletedCommentId={setDeletedCommentId}
-                deletedCommentId={deletedCommentId}
-                newComment={newComment}
-            />
-        )
-    })
+    const postCards = postsData
+        .sort((a, b) => (a.id > b.id ? 1 : -1))
+        .map((post) => {
+            return (
+                <PostCard
+                    key={post.id}
+                    authorName={post.author.username}
+                    dateCreated={post.createdAt}
+                    postTitle={post.title}
+                    commentsNumber={post._count.comments}
+                    postId={post.id}
+                    setNewComment={setNewComment}
+                    setDeletedCommentId={setDeletedCommentId}
+                    deletedCommentId={deletedCommentId}
+                    newComment={newComment}
+                />
+            )
+        })
 
     return (
         <div className="mt-2 flex w-180 flex-col gap-5 self-center">

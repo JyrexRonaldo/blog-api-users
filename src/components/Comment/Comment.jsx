@@ -38,6 +38,9 @@ function Comment({
 
             const data = await response.json()
             console.log(data)
+            // state setter serves the purposes of triggering a refetch
+            setDeletedCommentId({...data})
+            setShow(null)
         } catch (error) {
             console.log(error)
         }

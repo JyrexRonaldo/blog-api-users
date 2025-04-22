@@ -49,22 +49,24 @@ function CommentList({
             </div>
         )
 
-    const commentCards = commentsData.map((comment) => {
-        return (
-            <Comment
-                key={comment.id}
-                author={comment.author.username}
-                createdAt={comment.createdAt}
-                comment={comment.comment}
-                commentId={comment.id}
-                postId={comment.postId}
-                setDeletedCommentId={setDeletedCommentId}
-                showId={comment.id}
-                show={show}
-                setShow={setShow}
-            />
-        )
-    })
+    const commentCards = commentsData
+        .sort((a, b) => (a.id > b.id ? 1 : -1))
+        .map((comment) => {
+            return (
+                <Comment
+                    key={comment.id}
+                    author={comment.author.username}
+                    createdAt={comment.createdAt}
+                    comment={comment.comment}
+                    commentId={comment.id}
+                    postId={comment.postId}
+                    setDeletedCommentId={setDeletedCommentId}
+                    showId={comment.id}
+                    show={show}
+                    setShow={setShow}
+                />
+            )
+        })
 
     return <div>{commentCards}</div>
 }

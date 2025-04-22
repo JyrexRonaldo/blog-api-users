@@ -16,12 +16,8 @@ function PostCard({
     setNewComment,
     setDeletedCommentId,
     deletedCommentId,
-    newComment
+    newComment,
 }) {
-    // const [deletedCommentId, setDeletedCommentId] = useState(null)
-
-    // const [newComment, setNewComment] = useState(null)
-
     const [comment, setComment] = useState('')
 
     const navigate = useNavigate()
@@ -61,7 +57,7 @@ function PostCard({
             const data = await response.json()
             console.log(data)
             setComment('')
-            setNewComment({...data})
+            setNewComment({ ...data })
         } catch (error) {
             console.log(error)
         }
