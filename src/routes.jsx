@@ -28,6 +28,7 @@ const routes = [
     {
         path: '/:itemId',
         element: <PostItem />,
+        errorElement: <ErrorPage />,
     },
 ]
 

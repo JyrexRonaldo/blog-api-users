@@ -79,13 +79,13 @@ function PostItem() {
 
     if (loading)
         return (
-            <div>
+            <div className="mt-52 flex items-center justify-center">
                 <p>Loading...</p>
             </div>
         )
     if (error)
         return (
-            <div>
+            <div className="mt-52 flex items-center justify-center">
                 <p>A network error was encountered</p>
             </div>
         )
