@@ -2,6 +2,7 @@ import { useState } from 'react'
 import deleteIcon from '/trash.svg'
 import editIcon from '/edit.svg'
 import Textarea from '../Textarea/Textarea'
+import { format } from 'date-fns'
 
 function Comment({
     author,
@@ -74,6 +75,8 @@ function Comment({
             console.log(error)
         }
     }
+
+    createdAt = format(new Date(createdAt), "MMMM dd, yyyy")
 
     return (
         <div>

@@ -5,13 +5,12 @@ import { useParams, Link } from 'react-router-dom'
 import CommentList from '../CommentList/CommentList'
 import Textarea from '../Textarea/Textarea'
 import NavBar from '../NavBar/NavBar'
+import { format } from 'date-fns'
 
 const usePostItemData = (postId, newComment, deletedCommentId) => {
     const [postItemData, setPostItemData] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
-
-    console.log(deletedCommentId)
 
     useEffect(() => {
         fetch(`http://localhost:3000/${postId}`)
@@ -91,7 +90,7 @@ function PostItem() {
             </div>
         )
 
-    // console.log(postItemData)
+        const createdAt = format(new Date(postItemData.createdAt), "MMMM dd, yyyy")
 
     return (
         <>
@@ -102,7 +101,7 @@ function PostItem() {
                     </p>
                     <div className="flex gap-4">
                         <p>{postItemData.author.username}</p>
-                        <p>Posted on: {postItemData.createdAt}</p>
+                        <p>Posted on: {createdAt}</p>
                     </div>
                     <p>{postItemData.body}</p>
                     <button

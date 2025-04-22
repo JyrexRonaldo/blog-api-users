@@ -6,6 +6,7 @@ import readIcon from '/read.svg'
 import CommentList from '../CommentList/CommentList'
 import { useNavigate } from 'react-router-dom'
 import Textarea from '../Textarea/Textarea'
+import { format } from 'date-fns'
 
 function PostCard({
     authorName,
@@ -62,6 +63,8 @@ function PostCard({
             console.log(error)
         }
     }
+
+    dateCreated = format( new Date(dateCreated), "MMMM dd, yyyy")
 
     return (
         <div className="flex flex-col gap-3 rounded-[12px] bg-neutral-800 p-5.5">
