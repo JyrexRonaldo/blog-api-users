@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom'
 import CommentList from '../CommentList/CommentList'
 import Textarea from '../Textarea/Textarea'
 
-const usePostItemData = (postId) => {
+const usePostItemData = (postId, newComment) => {
     const [postItemData, setPostItemData] = useState(null)
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
@@ -21,12 +21,13 @@ const usePostItemData = (postId) => {
             .then((response) => setPostItemData(response))
             .catch((error) => setError(error))
             .finally(() => setLoading(false))
-    }, [postId])
+    }, [postId, newComment])
 
     return { postItemData, error, loading }
 }
 
 function PostItem() {
+    const [newComment, setNewComment] = useState(null)
     const [comment, setComment] = useState('')
 
     const [show, setShow] = useState(true)
@@ -60,12 +61,14 @@ function PostItem() {
 
             const data = await response.json()
             console.log(data)
+            setComment("")
+            setNewComment(data)
         } catch (error) {
             console.log(error)
         }
     }
 
-    const { postItemData, error, loading } = usePostItemData(itemId)
+    const { postItemData, error, loading } = usePostItemData(itemId, newComment)
 
     if (loading)
         return (
@@ -92,7 +95,7 @@ function PostItem() {
             <p>{postItemData.body}</p>
             <button
                 onClick={handleCommentDisplay}
-                className="flex items-center gap-1.5 cursor-pointer"
+                className="flex cursor-pointer items-center gap-1.5"
             >
                 <img
                     className="h-auto w-3.5"
@@ -112,9 +115,9 @@ function PostItem() {
                         textBoxValue={comment}
                         textFieldHandler={handleCommentTextarea}
                         sendButtonHandler={handleCommentPost}
-                        placeholderText={"Leave a comment..."}
+                        placeholderText={'Leave a comment...'}
                     ></Textarea>
-                    <CommentList postId={itemId} />
+                    <CommentList postId={itemId} newComment={newComment} />
                 </div>
             )}
         </div>

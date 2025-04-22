@@ -14,6 +14,8 @@ function PostCard({
     commentsNumber,
     postId,
 }) {
+    const [newComment, setNewComment] = useState(null)
+
     const [comment, setComment] = useState('')
 
     const navigate = useNavigate()
@@ -52,6 +54,8 @@ function PostCard({
 
             const data = await response.json()
             console.log(data)
+            setComment("")
+            setNewComment(data)
         } catch (error) {
             console.log(error)
         }
@@ -104,7 +108,7 @@ function PostCard({
                         sendButtonHandler={handleCommentPost}
                         placeholderText={"Leave a comment..."}
                     ></Textarea>
-                    <CommentList postId={postId} />
+                    <CommentList postId={postId} newComment={newComment} />
                 </div>
             )}
         </div>
