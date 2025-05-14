@@ -30,7 +30,7 @@ function PostCard({
     }
 
     const handlePostItemDisplay = () => {
-        navigate(`/${postId}`)
+        navigate(`/posts/${postId}`)
     }
 
     const handleCommentTextarea = (e) => {
@@ -72,7 +72,7 @@ function PostCard({
                 <p className="text-[0.8rem] font-extrabold">{authorName}</p>
                 <p className="text-[0.8rem] font-extralight">{dateCreated}</p>
             </div>
-            <Link to={`/${postId}`}>
+            <Link to={`/posts/${postId}`}>
                 <p className="text-4xl font-bold">{postTitle}</p>
             </Link>
 
