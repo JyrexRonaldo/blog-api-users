@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 function RegisterForm() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
 
     const handleUsernameInput = (e) => {
@@ -15,6 +16,10 @@ function RegisterForm() {
     }
 
     const handleRegisterButton = async () => {
+        if ( password === '' || username === '' ) {
+            setErrorMessage("Username and password fields cannot be empty")
+            return
+        }
         try {
             const response = await fetch(`${import.meta.env.VITE_HOME_DOMAIN}/auth/sign-up`, {
                 method: 'POST',
@@ -80,6 +85,7 @@ function RegisterForm() {
                         Login
                     </Link>
                 </p>
+                <p className="text-sm text-red-400">{errorMessage}</p>
             </form>
         </div>
     )
