@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 function LoginForm() {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
     const navigate = useNavigate()
 
     const handleUsernameInput = (e) => {
@@ -31,6 +32,9 @@ function LoginForm() {
             console.log(data)
             if (data.message === 'User not found') {
                 navigate('/register')
+            } else if (data.message === 'Wrong Password!!!') {
+                setErrorMessage('Wrong Password!!!')
+                return
             } else {
                 localStorage.setItem('userToken', `${data.token}`)
                 localStorage.setItem('userId', `${data.userId}`)
@@ -53,6 +57,7 @@ function LoginForm() {
                         type="text"
                         name="username"
                         id="username"
+                        autoComplete="username"
                         value={username}
                         onChange={handleUsernameInput}
                         className="w-full bg-neutral-800"
@@ -65,6 +70,7 @@ function LoginForm() {
                         type="password"
                         name="password"
                         id="password"
+                        autoComplete="current-password"
                         value={password}
                         onChange={handlePasswordInput}
                         className="w-full bg-neutral-800"
@@ -84,6 +90,7 @@ function LoginForm() {
                     Register
                 </Link>
             </p>
+            <p className="text-sm text-red-700">{errorMessage}</p>
         </div>
     )
 }
